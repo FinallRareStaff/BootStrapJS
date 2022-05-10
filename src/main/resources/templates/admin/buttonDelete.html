@@ -1,0 +1,82 @@
+<div th:fragment="buttonDelete">
+    <div th:each="currentUser : ${users}" class="modal fade" th:id="@{deleteModal{id} (id = ${currentUser.getId()})}"
+         tabindex="-1" role="dialog" th:aria-labelledby="@{deleteModalLabel{id} (id = ${currentUser.getId()})}"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" th:id="@{deleteModalLabel{id} (id=${currentUser.getId()})}">Delete user</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="container w-50">
+                        <form th:id="@{deleteUserSample{id} (id = ${currentUser.getId()})}" th:method="DELETE"
+                              th:action="@{/admin/users/{id} (id = ${currentUser.getId()})}" th:object="${sampleUser}">
+                            <div class="form-group py-2">
+                                <label th:for="@{name{id} (id = ${currentUser.getId()})}"><b>Name</b></label>
+                                <input type="text" class="form-control"
+                                       th:id="@{name{id} (id = ${currentUser.getId()})}"
+                                       placeholder="Name" name="name" th:value=${currentUser.name}
+                                       disabled>
+                            </div>
+                            <div class="form-group py-2">
+                                <label th:for="@{nickname{id} (id = ${currentUser.getId()})}"><b>NickName</b></label>
+                                <input type="text" class="form-control"
+                                       th:id="@{nickname{id} (id = ${currentUser.getId()})}"
+                                       placeholder="NickName" name="nickName" th:value=${currentUser.nickName}
+                                       disabled>
+                            </div>
+                            <div class="form-group py-2">
+                                <label th:for="@{ladder{id} (id = ${currentUser.getId()})}"><b>Ladder</b></label>
+                                <input type="number" class="form-control"
+                                       th:id="@{ladder{id} (id = ${currentUser.getId()})}"
+                                       placeholder="Ladder" name="ladder" th:value=${currentUser.ladder}
+                                       disabled>
+                            </div>
+                            <div class="form-group py-2">
+                                <label th:for="@{email{id} (id = ${currentUser.getId()})}"><b>Email</b></label>
+                                <input type="email" class="form-control"
+                                       th:id="@{email{id} (id = ${currentUser.getId()})}"
+                                       placeholder="Email" name="email" th:value=${currentUser.email}
+                                       disabled>
+                            </div>
+                            <div class="form-group py-2">
+                                <label th:for="@{username{id} (id = ${currentUser.getId()})}"><b>Username</b></label>
+                                <input type="text" class="form-control"
+                                       th:id="@{username{id} (id = ${currentUser.getId()})}"
+                                       placeholder="Username" name="username" th:value=${currentUser.username}
+                                       disabled>
+                            </div>
+                            <div class="form-group py-2">
+                                <label th:for="@{password{id} (id = ${currentUser.getId()})}"><b>Password</b></label>
+                                <input type="password" class="form-control"
+                                       th:id="@{password{id} (id = ${currentUser.getId()})}"
+                                       placeholder="Password" name="password" th:value=${currentUser.password}
+                                       disabled>
+                            </div>
+                            <div class="form-group py-2">
+                                <label th:for="@{roles{id} (id = ${currentUser.getId()})}"><b>Role</b></label>
+                                <select multiple class="form-control" th:id="@{roles{id} (id = ${currentUser.getId()})}"
+                                        size="2" name="roles" disabled>
+                                    <option th:if="${currentUser.hasUserRole()}" th:value="'ROLE_USER'" th:text="USER"
+                                            selected></option>
+                                    <option th:unless="${currentUser.hasUserRole()}" th:value="'ROLE_USER'"
+                                            th:text="USER"></option>
+                                    <option th:if="${currentUser.hasAdminRole()}" th:value="'ROLE_ADMIN'"
+                                            th:text="ADMIN"
+                                            selected></option>
+                                    <option th:unless="${currentUser.hasAdminRole()}" th:value="'ROLE_ADMIN'"
+                                            th:text="ADMIN"></option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-danger"
+                           th:form="@{deleteUserSample{id} (id = ${currentUser.getId()})}" value="Delete">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

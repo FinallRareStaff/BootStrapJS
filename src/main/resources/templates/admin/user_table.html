@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Admin panel</title>
+</head>
+<body>
+<!--Create HEAD-->
+<header th:insert="admin/header :: header"></header>
+<!--Create body-->
+<div class="container-fluid">
+    <div class="row mt-4" style="height: 100vh;">
+        <!--Create side panel with role info-->
+        <div class="col-md-2 m-0 p-0">
+            <ul class="nav nav-pills flex-column">
+                <span th:each="role : ${user.getRoles()}">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Admin</a>
+                </li>
+                </span>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user">User</a>
+                </li>
+            </ul>
+        </div>
+        <!--Create block with bullet list and table-->
+        <div class="col-md-10" style="background-color: rgb(247,247,250);">
+            <h1>Admin panel</h1>
+            <!--Create bulleted list-->
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Users table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/users/new">New User</a>
+                </li>
+            </ul>
+            <!--Create Container with table-->
+            <div class="container-fluid border rounded p-0">
+                <div class="m-2 mb-0"><h3>All users</h3></div>
+                <div class="m-0 p-4 border-top" style="background-color: white;">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">NickName</th>
+                            <th scope="col">Ladder</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="currentUser : ${users}">
+                            <th scope="row" th:text="@{{id} (id=${currentUser.getId()})}">ID</th>
+                            <td th:text="@{{name} (name=${currentUser.getName()})}">Name</td>
+                            <td th:text="@{{nickname} (nickname=${currentUser.getNickName()})}">NickName</td>
+                            <td th:text="@{{ladder} (ladder=${currentUser.getLadder()})}">Ladder</td>
+                            <td th:text="@{{email} (email=${currentUser.getEmail()})}">Email</td>
+                            <td th:text="@{{username} (username=${currentUser.getUsername()})}">Username</td>
+                            <td>
+                                <span th:each="role : ${currentUser.roles}">
+                                    <span th:if="${role} == 'ROLE_ADMIN'">ADMIN</span>
+                                    <span th:if="${role} == 'ROLE_USER'">USER</span>
+                                </span>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-info" data-toggle="modal"
+                                        th:data-target="@{#editModal{id} (id=${currentUser.getId()})}">Edit
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                        th:data-target="@{#deleteModal{id} (id=${currentUser.getId()})}">Delete
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Create modal window for Edit-->
+<div th:insert="admin/buttonEdit :: buttonEdit"></div>
+<!--Create modal window for delete-->
+<div th:insert="admin/buttonDelete :: buttonDelete"></div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<div th:fragment="header">
+    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <ul class="navbar-nav px-3">
+    <span><strong href="#" th:text="@{{email} (email=${user.getEmail()})}" style="color: white">  Email</strong>
+    <span style="color : white">with roles:</span>
+        <span th:each="role : ${user.getRoles()}">
+            <span th:if="${role.getRole()} == 'ROLE_ADMIN'" style="color : white">ADMIN</span>
+            <span th:if="${role.getRole()} == 'ROLE_USER'" style="color : white">USER</span>
+        </span>
+        </span>
+        </ul>
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+    </header>
+</div>
