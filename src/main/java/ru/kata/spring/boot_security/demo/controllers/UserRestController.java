@@ -16,12 +16,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RestController
-public class UserController {
+public class UserRestController {
 
     private final UserService userService;
     private final RoleService roleService;
 
-    public UserController(UserService userService, RoleService roleService) {
+    public UserRestController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }
@@ -43,7 +43,7 @@ public class UserController {
 
     @GetMapping("/user/userLogined")
     public User getUserLogined(Principal principal) {
-        return (User) userService.loadUserByUsername(principal.getName());
+        return userService.loadUserByUsername(principal.getName());
     }
 
     @DeleteMapping("/admin/deleteUser/{id}")
