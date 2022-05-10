@@ -11,9 +11,10 @@ import java.util.List;
 public interface UserService extends UserDetailsService {
     List<User> getAllUsers();
     User getUserById(long id);
-    void delete(long id);
-    void update(long id, User user);
     void add(User user);
+    void update(long id, User user);
+    void delete(long id);
+    void updateUser(User user, String stringRoleList);
     User findByUserName(String username);
 
     @Override
