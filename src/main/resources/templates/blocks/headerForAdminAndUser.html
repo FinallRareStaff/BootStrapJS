@@ -1,0 +1,24 @@
+<header th:fragment="headerAdminUser">
+
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/" id="aHeaderForAdminAndUser"> </a>
+
+
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <form class="nav-link" th:action="@{/logout}" method="POST">
+                    <input th:if="${username} != null" class="btn btn-warning" type="submit" value="Выйти"/>
+                </form>
+            </li>
+        </ul>
+    </nav>
+
+    <!--C помощью. sec:authentication-->
+    <!--        <div>-->
+    <!--            <span id="name" sec:authentication="name"></span>-->
+    <!--            <span>с ролями</span> <span style="color: white" sec:authentication="principal.authorities"></span>-->
+    <!--        </div>-->
+    <!--        <li  style="color: white" th:value="${#strings.listJoin(roles,',')}"/>-->
+
+
+</header>

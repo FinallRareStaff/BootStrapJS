@@ -1,0 +1,28 @@
+fetch('http://localhost:8080/user/userLogined')
+    .then((response) => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            console.log('ERROR')
+        }
+    })
+    .then((data) => {
+        tableUser(data)
+        $('#aHeaderForAdminAndUser').text(data.email + ' с ролями: ' + data.rolesString)
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+
+function tableUser(data) {
+    let htmlTableUser;
+    htmlTableUser = htmlTableUser + '<tr class="tableRow">' +
+        '<td>' + data.id + '</td>' +
+        '<td>' + data.name + '</td>' +
+        '<td>' + data.nickname + '</td>' +
+        '<td>' + data.ladder + '</td>' +
+        '<td>' + data.email + '</td>' +
+        '<td>' + data.rolesString + '</td>' +
+        '<tr>'
+    $('#tbodyTableUser').html(htmlTableUser)
+}

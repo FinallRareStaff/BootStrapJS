@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -78,6 +79,14 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String getRolesString() {
+        String stringRoles = roles.stream()
+                .map(role -> role.getRole()
+                        .replace("ROLE_", ""))
+                .collect(Collectors.joining(","));
+        return stringRoles;
     }
 
     public User() {

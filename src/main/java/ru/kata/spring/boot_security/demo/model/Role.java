@@ -22,6 +22,10 @@ public class Role implements GrantedAuthority {
         return role;
     }
 
+    public String getRoleString() {
+        return role.replace("ROLE_", "");
+    }
+
     public Role() {
     }
 

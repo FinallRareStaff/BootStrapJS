@@ -1,0 +1,64 @@
+<!--    Модальное окно-->
+
+<div th:fragment="modalEdit">
+    <div class="modal fade" id="staticBackdropEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Редактирование пользователя</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div style="text-align: center" class="container mt-5 mb-5">
+
+                        <form id="formE">
+                            <h5>ID</h5>
+
+                            <input type="text" id="idE"
+                                   placeholder="Введите id"
+                                   class="form-control" disabled>
+
+                            <h5>Имя</h5>
+                            <input type="text" id="nameE"
+                                   placeholder="Введите имя пользователя"
+                                   class="form-control">
+
+                            <h5>Никнейм</h5>
+                            <input type="text" id="nicknameE"
+                                   placeholder="Введите никнейм пользователя" class="form-control">
+
+                            <h5>Место в рейтинге</h5>
+                            <input type="number" id="ladderE"
+                                   placeholder="Введите рейтинг пользователя" class="form-control">
+
+                            <h5>Email</h5>
+                            <input type="email" id="emailE"
+                                   placeholder="Введите электронную почту пользователя" class="form-control">
+
+                            <h5>Пароль</h5>
+                            <input type="password" id="passwordE"
+                                   placeholder="Введите пароль пользователя" onfocus="this.value=''"
+                                   class="form-control">
+
+                            <h5>Роли</h5>
+                            <select class="form-select" multiple name="stringRoleList" id="rolesModalE">
+                                <option></option>
+                            </select>
+                        </form>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="editButtonModal btn btn-primary" id="editButtonModal">Редактировать</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
