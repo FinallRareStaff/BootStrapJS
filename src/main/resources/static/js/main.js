@@ -1,7 +1,8 @@
 $(function () {
 
+    // Заполнение HeaderForAdminAndUser
     function aHeaderForAdminAndUser() {
-        fetch('http://localhost:8080/user/userLogined')
+        fetch('http://localhost:8080/user/json/userAuthorized')
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -17,8 +18,9 @@ $(function () {
             })
     }
 
+    //Заполнение таблиц
     function requestAllUsers() {
-        fetch('http://localhost:8080/admin/users')
+        fetch('http://localhost:8080/admin/json/allUsers')
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -38,10 +40,11 @@ $(function () {
 
     requestAllUsers()
 
+    //Заполнение таблицы tableAdmin данными
     function tableAdmin(data) {
-        let htmltableAdmin;
+        let htmlTableAdmin;
         $.each(data, function (key, val) {
-            htmltableAdmin += '<tr class="tableRow">' +
+            htmlTableAdmin += '<tr class="tableRow">' +
                 '<td>' + val.id + '</td>' +
                 '<td>' + val.name + '</td>' +
                 '<td>' + val.nickname + '</td>' +
@@ -62,9 +65,10 @@ $(function () {
                 '</td>' +
                 '<tr>'
         })
-        $('#tbodyTableAdmin').html(htmltableAdmin)
+        $('#tbodyTableAdmin').html(htmlTableAdmin)
     }
 
+    //Заполнение таблицы tableIndex данными
     function tableIndex(data) {
         let htmlIndex;
         $.each(data, function (key, val) {
@@ -79,7 +83,8 @@ $(function () {
         $('#tbodyIndex').html(htmlIndex)
     }
 
-    fetch('http://localhost:8080/admin/roles')
+    // Заполнение select ролями в createNew
+    fetch('http://localhost:8080/admin/json/allRoles')
         .then((response) => {
             if (response.ok) {
                 return response.json();
@@ -101,17 +106,19 @@ $(function () {
         })
     }
 
+    // Заполнение select ролями в modalEdit
     function selectModalE(data) {
         $.error(data, function (key, value) {
             $('#rolesModalE').prepend('<option value="' + value.id + '">' + value.roleString + '</option>');
-        });
+        })
     }
 
+    // Заполнение модального окна редактирования пользователя
     const staticBackdropEdit = document.getElementById('staticBackdropEdit')
     staticBackdropEdit.addEventListener('show.bs.modal', function (event) {
         let button = event.relatedTarget
         let idUser = button.getAttribute('data-bs-whatever');
-        const requestUserFromIdURL = 'http://localhost:8080/admin/user/' + idUser
+        const requestUserFromIdURL = 'http://localhost:8080/admin/json/userFromId/' + idUser
         fetch(requestUserFromIdURL)
             .then((response) => {
                 if (response.ok) {
@@ -137,11 +144,12 @@ $(function () {
             })
     })
 
+    // Заполнение модального окна удаления пользователя
     const staticBackdropDelete = document.getElementById('staticBackdropDelete')
     staticBackdropDelete.addEventListener('show.bs.modal', function (event) {
         let button = event.relatedTarget
         let idUser = button.getAttribute('data-bs-whatever');
-        const requestUserFromIdURL = 'http://localhost:8080/admin/user/' + idUser
+        const requestUserFromIdURL = 'http://localhost:8080/admin/json/userFromId/' + idUser
         fetch(requestUserFromIdURL)
             .then((response) => {
                 if (response.ok) {
@@ -168,6 +176,7 @@ $(function () {
             })
     })
 
+    //Добавление пользователя
     function userFromCreate() {
         let name = $('#nameC').val()
         let nickname = $('#nicknameC').val()
@@ -192,7 +201,7 @@ $(function () {
     }
 
     $('#createButton').click(function () {
-        fetch('http://localhost:8080/admin/createUser', {
+        fetch('http://localhost:8080/admin/json/createUser', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
@@ -218,6 +227,7 @@ $(function () {
         return false;
     })
 
+    //Редактирование пользователя
     function userFormEdit() {
         let id = $('#idE').val()
         let name = $('#nameE').val()
@@ -232,6 +242,7 @@ $(function () {
         })
 
         let user = {
+            'id' : id,
             'name' : name,
             'nickname' : nickname,
             'ladder' : ladder,
@@ -242,8 +253,9 @@ $(function () {
         return user
     }
 
+
     $('.editButtonModal').on('click', function () {
-        fetch('http://localhost:8080/admin/editUser', {
+        fetch('http://localhost:8080/admin/json/editUser', {
             method: 'PATCH',
             headers: {
                 'Content-type': 'application/json'
@@ -267,15 +279,18 @@ $(function () {
             })
     })
 
+    //Удаление пользователя
     $('.deleteButtonModal').each(function () {
         $(this).click(function () {
             let userId = $(this).attr('value')
-            fetch('http://localhost:8080/admin/deleteUser/' + userId, {
+            fetch('http://localhost:8080/admin/json/deleteUser/' + userId, {
                 method: 'DELETE',
             })
                 .then((response) => {
                     if (response.ok) {
-                        return response.json()
+                        console.log('delete user')
+                        requestAllUsers()
+                        $('#staticBackdropDelete').modal('hide');
                     } else {
                         console.log('ERROR')
                     }
