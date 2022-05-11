@@ -26,32 +26,32 @@ public class UserRestController {
         this.roleService = roleService;
     }
 
-    @GetMapping("/admin/users")
+    @GetMapping(value = "/admin/users")
     public List<User> giveAllUsers() {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/admin/roles")
+    @GetMapping(value = "/admin/roles")
     public List<Role> giveAllRoles() {
         return roleService.getAllRoles();
     }
 
-    @GetMapping("/admin/user/{id}")
+    @GetMapping(value = "/admin/user/{id}")
     public User getUserById(@PathVariable("id") long id) {
         return userService.getUserById(id);
     }
 
-    @GetMapping("/user/userLogined")
+    @GetMapping(value = "/user/userLogined")
     public User getUserLogined(Principal principal) {
         return userService.loadUserByUsername(principal.getName());
     }
 
-    @DeleteMapping("/admin/deleteUser/{id}")
+    @DeleteMapping(value = "/admin/deleteUser/{id}")
     public void deleteUser(@PathVariable("id") long id) {
         userService.delete(id);
     }
 
-    @PostMapping("/admin/createUser")
+    @PostMapping(value = "/admin/createUser")
     public User createUser(@RequestBody HashMap<String, String> data) {
         User user = new User();
         user.setName(data.get("name"));
@@ -80,7 +80,7 @@ public class UserRestController {
         return user;
     }
 
-    @PatchMapping("/admin/editUser")
+    @PatchMapping(value = "/admin/editUser")
     public User updateUser(@RequestBody HashMap<String, String> data) {
         User user = new User();
         long userId = Long.parseLong(data.get("id"));
