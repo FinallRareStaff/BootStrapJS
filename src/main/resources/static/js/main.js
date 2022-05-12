@@ -62,7 +62,7 @@ $(function () {
                 'Delete' +
                 '</button>' +
                 '</td>' +
-                '<tr>'
+                '</tr>'
         })
         $('#tbodyTableAdmin').html(htmlTableAdmin)
     }
