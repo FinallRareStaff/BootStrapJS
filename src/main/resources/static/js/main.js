@@ -203,7 +203,7 @@ $(function () {
                 console.log(data)
                 requestAllUsers()
                 $('#createForm')[0].reset();
-                alert('Пользователь' + data.email + ' добавлен')
+                alert('User ' + data.email + ' added successfully')
             })
             .catch((error) => {
                 console.log(error)
