@@ -1,11 +1,9 @@
 <div th:fragment="tableAdmin">
-
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
                     role="tab" aria-controls="home" aria-selected="true">Users table
             </button>
-
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button"
@@ -15,12 +13,11 @@
     </ul>
     <div class="tab-content border" id="myTabContent">
         <div class="tab-pane fade show active " id="home" role="tabpanel" aria-labelledby="home-tab">
-
             <h3 style="margin: 0 0 0 0; padding: 10px" class="border-top-0 rounded-1">All users</h3>
-
-            <div class="m-0 p-4 border-top" style="background-color: white;">
-                <table class="table table-striped" id="tableAdmin">
-
+            <div style="background: white;  padding-top: 10px; margin: 0 0 0 0; " class="container-fluid border"
+                 id="divTableAdmin">
+                <table style="background: white; " class="table table-border-top table-striped table-hover"
+                       id="tableAdmin">
                     <thead>
                     <tr>
                         <th>Id</th>
@@ -36,16 +33,12 @@
                     <tbody id="tbodyTableAdmin">
 
                     </tbody>
-
                 </table>
-
             </div>
         </div>
         <div class="tab-pane fade " id="profile" role="tabpanel" aria-labelledby="profile-tab">
             <h3 style="margin: 0 0 0; padding: 10px" class="border-top-0 rounded-1">Add new user</h3>
             <div th:insert="blocks/createNew :: createNew"></div>
         </div>
-
     </div>
-
 </div>
