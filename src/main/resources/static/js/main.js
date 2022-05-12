@@ -2,7 +2,7 @@ $(function () {
 
     // Заполнение HeaderForAdminAndUser
     function aHeaderForAdminAndUser() {
-        fetch('http://localhost:8080/user/json/userAuthorized')
+        fetch('http://localhost:8080/user/userLogined')
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -20,7 +20,7 @@ $(function () {
 
     //Заполнение таблиц
     function requestAllUsers() {
-        fetch('http://localhost:8080/admin/json/allUsers')
+        fetch('http://localhost:8080/admin/getUsers')
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -68,7 +68,7 @@ $(function () {
     }
 
     // Заполнение select ролями в createNew
-    fetch('http://localhost:8080/admin/json/allRoles')
+    fetch('http://localhost:8080/admin/getRoles')
         .then((response) => {
             if (response.ok) {
                 return response.json();
@@ -102,7 +102,7 @@ $(function () {
     staticBackdropEdit.addEventListener('show.bs.modal', function (event) {
         let button = event.relatedTarget
         let idUser = button.getAttribute('data-bs-whatever');
-        const requestUserFromIdURL = 'http://localhost:8080/admin/json/userFromId/' + idUser
+        const requestUserFromIdURL = 'http://localhost:8080/admin/userFromId/' + idUser
         fetch(requestUserFromIdURL)
             .then((response) => {
                 if (response.ok) {
@@ -133,7 +133,7 @@ $(function () {
     staticBackdropDelete.addEventListener('show.bs.modal', function (event) {
         let button = event.relatedTarget
         let idUser = button.getAttribute('data-bs-whatever');
-        const requestUserFromIdURL = 'http://localhost:8080/admin/json/userFromId/' + idUser
+        const requestUserFromIdURL = 'http://localhost:8080/admin/userFromId/' + idUser
         fetch(requestUserFromIdURL)
             .then((response) => {
                 if (response.ok) {
@@ -185,7 +185,7 @@ $(function () {
     }
 
     $('#createButton').click(function () {
-        fetch('http://localhost:8080/admin/json/createUser', {
+        fetch('http://localhost:8080/admin/createUser', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
@@ -239,7 +239,7 @@ $(function () {
 
 
     $('.editButtonModal').on('click', function () {
-        fetch('http://localhost:8080/admin/json/editUser', {
+        fetch('http://localhost:8080/admin/editUser', {
             method: 'PATCH',
             headers: {
                 'Content-type': 'application/json'
@@ -267,7 +267,7 @@ $(function () {
     $('.deleteButtonModal').each(function () {
         $(this).click(function () {
             let userId = $(this).attr('value')
-            fetch('http://localhost:8080/admin/json/deleteUser/' + userId, {
+            fetch('http://localhost:8080/admin/deleteUser/' + userId, {
                 method: 'DELETE',
             })
                 .then((response) => {

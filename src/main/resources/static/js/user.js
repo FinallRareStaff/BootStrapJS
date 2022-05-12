@@ -1,4 +1,4 @@
-fetch('http://localhost:8080/user/json/userAuthorized')
+fetch('http://localhost:8080/user/userLogined')
     .then((response) => {
         if (response.ok) {
             return response.json();

@@ -26,32 +26,32 @@ public class UserRestController {
         this.roleService = roleService;
     }
 
-    @GetMapping(value = "/admin/json/allUsers")
+    @GetMapping(value = "/admin/getUsers")
     public List<User> giveAllUsers() {
         return userService.getAllUsers();
     }
 
-    @GetMapping(value = "/admin/json/allRoles")
+    @GetMapping(value = "/admin/getRoles")
     public List<Role> giveAllRoles() {
         return roleService.getAllRoles();
     }
 
-    @GetMapping(value = "/admin/json/userFromId/{id}")
+    @GetMapping(value = "/admin/userFromId/{id}")
     public User getUserById(@PathVariable("id") long id) {
         return userService.getUserById(id);
     }
 
-    @GetMapping(value = "/user/json/userAuthorized")
+    @GetMapping(value = "/user/userLogined")
     public User getUserLogined(Principal principal) {
         return userService.loadUserByUsername(principal.getName());
     }
 
-    @DeleteMapping(value = "/admin/json/deleteUser/{id}")
+    @DeleteMapping(value = "/admin/deleteUser/{id}")
     public void deleteUser(@PathVariable("id") long id) {
         userService.delete(id);
     }
 
-    @PostMapping(value = "/admin/json/createUser")
+    @PostMapping(value = "/admin/createUser")
     public User createUser(@RequestBody HashMap<String, String> data) {
         User user = new User();
         user.setName(data.get("name"));
@@ -80,7 +80,7 @@ public class UserRestController {
         return user;
     }
 
-    @PatchMapping(value = "/admin/json/editUser")
+    @PatchMapping(value = "/admin/editUser")
     public User updateUser(@RequestBody HashMap<String, String> data) {
         User user = new User();
         long userId = Long.parseLong(data.get("id"));

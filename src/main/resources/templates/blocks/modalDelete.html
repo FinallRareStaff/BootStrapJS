@@ -1,4 +1,3 @@
-<!--    Модальное окно-->
 <div th:fragment="modalDelete">
     <div class="modal fade" id="staticBackdropDelete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
          aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -9,49 +8,33 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
                     <div style="text-align: center" class="container mt-5 mb-5">
-
                         <form id="formD">
                             <h5>ID</h5>
-
-                            <input type="text" name="id" id="idD"
-                                   placeholder="Введите id"
-                                   class="form-control" disabled>
-
+                            <input type="text" name="id" id="idD" placeholder="" class="form-control" disabled>
                             <h5>Name</h5>
-                            <input type="text" id="nameD" name="name"
-                                   placeholder="Введите имя пользователя"
-                                   class="form-control" disabled>
-
+                            <input type="text" id="nameD" name="name" placeholder="" class="form-control" disabled>
                             <h5>Nickname</h5>
-                            <input type="text" id="nicknameD" name="nickname"
-                                   placeholder="Введите никнейм пользователя" class="form-control" disabled>
-
+                            <input type="text" id="nicknameD" name="nickname" placeholder="" class="form-control"
+                                   disabled>
                             <h5>Ladder</h5>
-                            <input type="number" id="ladderD" name="ladder"
-                                   placeholder="Введите рейтинг пользователя" class="form-control" disabled>
-
+                            <input type="number" id="ladderD" name="ladder" placeholder="" class="form-control"
+                                   disabled>
                             <h5>Email</h5>
-                            <input type="email" id="emailD" name="email"
-                                   placeholder="Введите электронную почту пользователя" class="form-control" disabled>
-
-
+                            <input type="email" id="emailD" name="email" placeholder="" class="form-control" disabled>
                             <h5>Roles</h5>
-                            <select class="form-select" multiple name="stringRoleList" id="rolesModalD" disabled size="2">
+                            <select class="form-select" multiple name="stringRoleList" id="rolesModalD" disabled
+                                    size="2">
                                 <option></option>
                             </select>
                         </form>
-
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="deleteButtonModal btn btn-danger" id="deleteButtonModal">Delete
                     </button>
                 </div>
-
             </div>
         </div>
     </div>
