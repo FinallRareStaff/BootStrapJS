@@ -11,7 +11,7 @@ $(function () {
                 }
             })
             .then((data) => {
-                $('#aHeaderForAdminAndUser').text(data.email + 'с ролями: ' + data.roleString)
+                $('#aHeaderForAdminAndUser').text(data.email + ' с ролями: ' + data.rolesString)
             })
             .catch((error) => {
                 console.log(error)
