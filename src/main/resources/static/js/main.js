@@ -92,7 +92,7 @@ $(function () {
 
     // Заполнение select ролями в modalEdit
     function selectModalE(data) {
-        $.error(data, function (key, value) {
+        $.each(data, function (key, value) {
             $('#rolesModalE').prepend('<option value="' + value.id + '">' + value.roleString + '</option>');
         })
     }
@@ -168,9 +168,9 @@ $(function () {
         let email = $('#emailC').val()
         let password = $('#passwordC').val()
         let roles = $('#rolesC').val()
-        let roleString = '';
+        let rolesString = '';
         $.each(roles, function (index, value) {
-            roleString += value + ','
+            rolesString += value + ','
         })
 
         let user = {
@@ -179,7 +179,7 @@ $(function () {
             'ladder' : ladder,
             'email' : email,
             'password' : password,
-            'roles' : roleString
+            'roles' : rolesString
         }
         return user
     }
@@ -220,9 +220,9 @@ $(function () {
         let email = $('#emailE').val()
         let password = $('#passwordE').val()
         let roles = $('#rolesModalE').val()
-        let roleString = '';
+        let rolesString = '';
         $.each(roles, function (index, value) {
-            roleString += value + ','
+            rolesString += value + ','
         })
 
         let user = {
@@ -232,7 +232,7 @@ $(function () {
             'ladder' : ladder,
             'email' : email,
             'password' : password,
-            'roles' : roleString
+            'roles' : rolesString
         }
         return user
     }

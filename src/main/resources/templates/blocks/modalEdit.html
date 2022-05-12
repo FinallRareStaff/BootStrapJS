@@ -6,7 +6,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Редактирование пользователя</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Edit user</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -20,16 +20,16 @@
                                    placeholder="Введите id"
                                    class="form-control" disabled>
 
-                            <h5>Имя</h5>
+                            <h5>Name</h5>
                             <input type="text" id="nameE"
                                    placeholder="Введите имя пользователя"
                                    class="form-control">
 
-                            <h5>Никнейм</h5>
+                            <h5>Nickname</h5>
                             <input type="text" id="nicknameE"
                                    placeholder="Введите никнейм пользователя" class="form-control">
 
-                            <h5>Место в рейтинге</h5>
+                            <h5>Ladder</h5>
                             <input type="number" id="ladderE"
                                    placeholder="Введите рейтинг пользователя" class="form-control">
 
@@ -37,13 +37,13 @@
                             <input type="email" id="emailE"
                                    placeholder="Введите электронную почту пользователя" class="form-control">
 
-                            <h5>Пароль</h5>
+                            <h5>Password</h5>
                             <input type="password" id="passwordE"
                                    placeholder="Введите пароль пользователя" onfocus="this.value=''"
                                    class="form-control">
 
-                            <h5>Роли</h5>
-                            <select class="form-select" multiple name="stringRoleList" id="rolesModalE">
+                            <h5>Roles</h5>
+                            <select class="form-select" multiple name="stringRoleList" id="rolesModalE" size="2">
                                 <option></option>
                             </select>
                         </form>
@@ -52,8 +52,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                    <button type="submit" class="editButtonModal btn btn-primary" id="editButtonModal">Редактировать</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="editButtonModal btn btn-primary" id="editButtonModal">Edit</button>
                 </div>
 
             </div>
