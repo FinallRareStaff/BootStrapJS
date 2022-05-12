@@ -30,7 +30,6 @@ $(function () {
             })
             .then((data) => {
                 tableAdmin(data)
-                tableIndex(data)
                 aHeaderForAdminAndUser()
             })
             .catch((error) => {
@@ -66,21 +65,6 @@ $(function () {
                 '<tr>'
         })
         $('#tbodyTableAdmin').html(htmlTableAdmin)
-    }
-
-    //Заполнение таблицы tableIndex данными
-    function tableIndex(data) {
-        let htmlIndex;
-        $.each(data, function (key, val) {
-            htmlIndex += '<tr class="tableRow">' +
-                '<td>' + val.id + '</td>' +
-                '<td>' + val.name + '</td>' +
-                '<td>' + val.nickname + '</td>' +
-                '<td>' + val.ladder + '</td>' +
-                '<td>' + val.email + '</td>' +
-                '<tr>'
-        })
-        $('#tbodyIndex').html(htmlIndex)
     }
 
     // Заполнение select ролями в createNew
