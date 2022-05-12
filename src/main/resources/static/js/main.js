@@ -51,15 +51,15 @@ $(function () {
                 '<td>' + val.email + '</td>' +
                 '<td>' + val.rolesString + '</td>' +
                 '<td>' +
-                '<button type="button" id="editButton" class="btn btn-secondary" data-bs-toggle="modal"' +
+                '<button type="button" id="editButton" class="btn btn-info" data-bs-toggle="modal"' +
                 'data-bs-target="#staticBackdropEdit" data-bs-whatever="' + val.id + '">' +
-                'Изменить' +
+                'Edit' +
                 '</button>' +
                 '</td>' +
                 '<td>' +
                 '<button type="button" id="deleteButton" class="btn btn-danger" data-bs-toggle="modal"' +
                 'data-bs-target="#staticBackdropDelete" data-bs-whatever="' + val.id + '">' +
-                'Удалить' +
+                'Delete' +
                 '</button>' +
                 '</td>' +
                 '<tr>'
