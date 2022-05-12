@@ -8,7 +8,7 @@ fetch('http://localhost:8080/user/json/userAuthorized')
     })
     .then((data) => {
         tableUser(data)
-        $('#aHeaderForAdminAndUser').text(data.email + ' с ролями: ' + data.rolesString)
+        $('#aHeaderForAdminAndUser').html('<strong>' + data.email + '</strong>' + ' with roles: ' + data.rolesString)
     })
     .catch((error) => {
         console.log(error)
