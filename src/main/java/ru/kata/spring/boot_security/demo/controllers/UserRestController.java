@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.Role;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RestController
+@Slf4j
 public class UserRestController {
 
     private final UserService userService;
@@ -28,26 +30,37 @@ public class UserRestController {
 
     @GetMapping(value = "/admin/getUsers")
     public List<User> giveAllUsers() {
+        log.info("CONTROLLER METHOD - giveAllUsers");
         return userService.getAllUsers();
     }
 
     @GetMapping(value = "/admin/getRoles")
     public List<Role> giveAllRoles() {
+        log.info("CONTROLLER METHOD - giveAllRoles");
         return roleService.getAllRoles();
     }
 
     @GetMapping(value = "/admin/userFromId/{id}")
-    public User getUserById(@PathVariable("id") long id) {
+    public User getUserById(@PathVariable("id") Long id) {
+        if (id == null) {
+            log.error("Method UserRestController.getUserById {} send BAD REQUEST!", id);
+        }
+        log.info("CONTROLLER METHOD - getUserById for id = {}", id);
         return userService.getUserById(id);
     }
 
     @GetMapping(value = "/user/userLogined")
     public User getUserLogined(Principal principal) {
+        log.info("CONTROLLER METHOD - getUserLogined");
         return userService.loadUserByUsername(principal.getName());
     }
 
     @DeleteMapping(value = "/admin/deleteUser/{id}")
-    public void deleteUser(@PathVariable("id") long id) {
+    public void deleteUser(@PathVariable("id") Long id) {
+        if (id == null) {
+            log.error("Method UserRestController.deleteUser {} send BAD REQUEST!", id);
+        }
+        log.info("CONTROLLER METHOD - deleteUser for id = {}", id);
         userService.delete(id);
     }
 
@@ -77,6 +90,7 @@ public class UserRestController {
 
         user.setRoles(roleCollection);
         userService.add(user);
+        log.info("CONTROLLER METHOD - createUser , POST on Admin_page");
         return user;
     }
 
@@ -112,6 +126,7 @@ public class UserRestController {
         }
         user.setRoles(roleCollection);
         userService.update(userId, user);
+        log.info("CONTROLLER METHOD - updateUser , PATCH on Admin_page");
         return user;
     }
 }

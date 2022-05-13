@@ -199,7 +199,7 @@ $(function () {
             .then((data) => {
                 console.log(data)
                 requestAllUsers()
-                $('#createForm')[0].reset();
+                $('#createForm')[0].reset()
             })
             .catch((error) => {
                 console.log(error)
