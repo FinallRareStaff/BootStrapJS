@@ -23,6 +23,7 @@ $(function () {
         fetch('http://localhost:8080/admin/getUsers')
             .then((response) => {
                 if (response.ok) {
+                    console.log(response)
                     return response.json();
                 } else {
                     console.log('ERROR')
@@ -204,7 +205,7 @@ $(function () {
             .catch((error) => {
                 console.log(error)
             })
-        return false;
+        return tableAdmin();
     })
 
     // edit User
