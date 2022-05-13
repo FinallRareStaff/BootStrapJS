@@ -1,6 +1,6 @@
 $(function () {
 
-    // Заполнение HeaderForAdminAndUser
+    // blocks/header
     function aHeader() {
         fetch('http://localhost:8080/user/userLogined')
             .then((response) => {
@@ -18,7 +18,7 @@ $(function () {
             })
     }
 
-    //Заполнение таблиц
+    //request users
     function requestAllUsers() {
         fetch('http://localhost:8080/admin/getUsers')
             .then((response) => {
@@ -39,7 +39,7 @@ $(function () {
 
     requestAllUsers()
 
-    //Заполнение таблицы tableAdmin данными
+    // blocks/admin_page
     function tableAdmin(data) {
         let htmlTableAdmin;
         $.each(data, function (key, val) {
@@ -67,7 +67,7 @@ $(function () {
         $('#tbodyTableAdmin').html(htmlTableAdmin)
     }
 
-    // Заполнение select ролями в createNew
+    // select for blocks/new_User and blocks/edit_window
     fetch('http://localhost:8080/admin/getRoles')
         .then((response) => {
             if (response.ok) {
@@ -90,20 +90,18 @@ $(function () {
         })
     }
 
-    // Заполнение select ролями в modalEdit
     function selectModalE(data) {
         $.each(data, function (key, value) {
             $('#rolesModalE').prepend('<option value="' + value.id + '">' + value.roleString + '</option>');
         })
     }
 
-    // Заполнение модального окна редактирования пользователя
+    // blocks/edit_window
     const staticBackdropEdit = document.getElementById('staticBackdropEdit')
     staticBackdropEdit.addEventListener('show.bs.modal', function (event) {
         let button = event.relatedTarget
         let idUser = button.getAttribute('data-bs-whatever');
-        const requestUserFromIdURL = 'http://localhost:8080/admin/userFromId/' + idUser
-        fetch(requestUserFromIdURL)
+        fetch('http://localhost:8080/admin/userFromId/' + idUser)
             .then((response) => {
                 if (response.ok) {
                     return response.json()
@@ -128,13 +126,12 @@ $(function () {
             })
     })
 
-    // Заполнение модального окна удаления пользователя
+    // blocks/delete_window
     const staticBackdropDelete = document.getElementById('staticBackdropDelete')
     staticBackdropDelete.addEventListener('show.bs.modal', function (event) {
         let button = event.relatedTarget
         let idUser = button.getAttribute('data-bs-whatever');
-        const requestUserFromIdURL = 'http://localhost:8080/admin/userFromId/' + idUser
-        fetch(requestUserFromIdURL)
+        fetch('http://localhost:8080/admin/userFromId/' + idUser)
             .then((response) => {
                 if (response.ok) {
                     return response.json()
@@ -160,7 +157,7 @@ $(function () {
             })
     })
 
-    //Добавление пользователя
+    // create User
     function userFromCreate() {
         let name = $('#nameC').val()
         let nickname = $('#nicknameC').val()
@@ -203,7 +200,6 @@ $(function () {
                 console.log(data)
                 requestAllUsers()
                 $('#createForm')[0].reset();
-                alert('User ' + data.email + ' added successfully')
             })
             .catch((error) => {
                 console.log(error)
@@ -211,7 +207,7 @@ $(function () {
         return false;
     })
 
-    //Редактирование пользователя
+    // edit User
     function userFormEdit() {
         let id = $('#idE').val()
         let name = $('#nameE').val()
@@ -263,7 +259,7 @@ $(function () {
             })
     })
 
-    //Удаление пользователя
+    // delete User
     $('.deleteButtonModal').each(function () {
         $(this).click(function () {
             let userId = $(this).attr('value')

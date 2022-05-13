@@ -16,7 +16,7 @@ fetch('http://localhost:8080/user/userLogined')
 
 function tableUser(data) {
     let htmlTableUser;
-    htmlTableUser = htmlTableUser + '<tr class="tableRow">' +
+    htmlTableUser = htmlTableUser + '<tr>' +
         '<td>' + data.id + '</td>' +
         '<td>' + data.name + '</td>' +
         '<td>' + data.nickname + '</td>' +

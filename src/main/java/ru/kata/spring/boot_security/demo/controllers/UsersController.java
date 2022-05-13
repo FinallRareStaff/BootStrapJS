@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +9,6 @@ import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.security.Principal;
-import java.sql.PreparedStatement;
 import java.util.Set;
 
 @Controller
@@ -51,28 +49,6 @@ public class UsersController {
         }
         model.addAttribute("users", userService.getAllUsers());
         return "users/admin";
-    }
-
-    @PostMapping("/admin/create")
-    public String create(@ModelAttribute("user") User user,
-                         @RequestParam String stringRoleList) {
-        userService.updateUser(user, stringRoleList);
-        userService.add(user);
-        return "redirect:/admin";
-    }
-
-    @PatchMapping("/admin/edit/{id}")
-    public String update(@ModelAttribute("user") User user, @PathVariable("id") long id,
-                         @RequestParam(required = false) String stringRoleList) {
-        userService.updateUser(user, stringRoleList);
-        userService.update(id, user);
-        return "redirect:/admin";
-    }
-
-    @DeleteMapping("/admin/delete/{id}")
-    public String delete(@PathVariable("id") long id) {
-        userService.delete(id);
-        return "redirect:/admin";
     }
 
 }
