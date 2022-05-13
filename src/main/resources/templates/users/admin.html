@@ -13,7 +13,7 @@
     <script src="../../static/js/main.js"></script>
 </head>
 <body>
-<header th:insert="blocks/headerForAdminAndUser :: headerAdminUser"></header>
+<header th:insert="blocks/header :: header"></header>
 <div style="height: inherit" class="container-fluid ">
     <div class="row vh-100">
         <nav style="padding: 0; " id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block   sidebar collapse">
@@ -47,9 +47,9 @@
             </div>
             <div>
                 <h1>Admin panel</h1>
-                <div class="position-sticky pt-3" th:insert="blocks/tableAdmin :: tableAdmin"></div>
-                <div th:insert="blocks/modalEdit :: modalEdit"></div>
-                <div th:insert="blocks/modalDelete :: modalDelete"></div>
+                <div class="position-sticky pt-3" th:insert="blocks/admin_page :: admin_page"></div>
+                <div th:insert="blocks/edit_window :: edit"></div>
+                <div th:insert="blocks/delete_window :: delete"></div>
             </div>
         </main>
     </div>

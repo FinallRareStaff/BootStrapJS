@@ -1,7 +1,7 @@
 $(function () {
 
     // Заполнение HeaderForAdminAndUser
-    function aHeaderForAdminAndUser() {
+    function aHeader() {
         fetch('http://localhost:8080/user/userLogined')
             .then((response) => {
                 if (response.ok) {
@@ -11,7 +11,7 @@ $(function () {
                 }
             })
             .then((data) => {
-                $('#aHeaderForAdminAndUser').html('<strong>' + data.email + '</strong>' + ' with roles: ' + data.rolesString)
+                $('#aHeader').html('<strong>' + data.email + '</strong>' + ' with roles: ' + data.rolesString)
             })
             .catch((error) => {
                 console.log(error)
@@ -30,7 +30,7 @@ $(function () {
             })
             .then((data) => {
                 tableAdmin(data)
-                aHeaderForAdminAndUser()
+                aHeader()
             })
             .catch((error) => {
                 console.log(error)
