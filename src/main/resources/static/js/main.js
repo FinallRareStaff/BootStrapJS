@@ -12,25 +12,17 @@ $(document).ready(function() {
     }
 
     //request users
-    function requestAllUsers() {
-        fetch('http://localhost:8080/admin/getUsers')
-            .then((response) => {
-                if (response.ok) {
-                    console.log(response)
-                    return response.json();
-                } else {
-                    console.log('ERROR')
-                }
-            })
-            .then((data) => {
-                tableAdmin(data)
-                aHeader()
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+    async function requestAllUsers() {
+        try {
+            const response = await fetch('http://localhost:8080/admin/getUsers')
+            const data = await response.json()
+            console.log(response)
+            tableAdmin(data)
+            aHeader()
+        } catch (error) {
+            console.log(error)
+        }
     }
-
     requestAllUsers()
 
     // blocks/admin_page
