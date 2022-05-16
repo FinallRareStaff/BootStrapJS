@@ -106,33 +106,27 @@ $(document).ready(function() {
 
     // blocks/delete_window
     document.getElementById('staticBackdropDelete')
-    .addEventListener('show.bs.modal', function (event) {
-        fetch('http://localhost:8080/admin/userFromId/' + event
+    .addEventListener('show.bs.modal', async function (event) {
+        try {
+            const response = await fetch('http://localhost:8080/admin/userFromId/' + event
                 .relatedTarget
                 .getAttribute('data-bs-whatever'))
-            .then((response) => {
-                if (response.ok) {
-                    return response.json()
-                } else {
-                    console.log('ERROR')
-                }
+            const data = await response.json()
+            console.log(response)
+            $('#deleteButtonModal').attr('value', data.id)
+            $('#idD').attr('value', data.id)
+            $('#nameD').attr('value', data.name)
+            $('#nicknameD').attr('value', data.nickname)
+            $('#ladderD').attr('value', data.ladder)
+            $('#emailD').attr('value', data.email)
+            $('#passwordD').attr('value', data.password)
+            $('#rolesModalD').empty()
+            $.each(data.roles, function (key, value) {
+                $('#rolesModalD').prepend('<option value="' + value.id + '">' + value.roleString + '</option>');
             })
-            .then((data) => {
-                $('#deleteButtonModal').attr('value', data.id)
-                $('#idD').attr('value', data.id)
-                $('#nameD').attr('value', data.name)
-                $('#nicknameD').attr('value', data.nickname)
-                $('#ladderD').attr('value', data.ladder)
-                $('#emailD').attr('value', data.email)
-                $('#passwordD').attr('value', data.password)
-                $('#rolesModalD').empty()
-                $.each(data.roles, function (key, value) {
-                    $('#rolesModalD').prepend('<option value="' + value.id + '">' + value.roleString + '</option>');
-                })
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+        } catch (error) {
+            console.log(error)
+        }
     })
 
     // create User
