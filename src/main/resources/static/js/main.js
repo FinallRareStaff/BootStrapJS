@@ -5,6 +5,7 @@ $(document).ready(function() {
         try {
             const response = await fetch('http://localhost:8080/user/userLogined')
             const data = await response.json()
+            console.log(response)
             $('#aHeader').html('<strong>' + data.email + '</strong>' + ' with roles: ' + data.rolesString)
         } catch (error) {
             console.log(error)
@@ -54,21 +55,18 @@ $(document).ready(function() {
     }
 
     // select for blocks/new_User and blocks/edit_window
-    fetch('http://localhost:8080/admin/getRoles')
-        .then((response) => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                console.log('ERROR')
-            }
-        })
-        .then((data) => {
+    async function selects() {
+        try {
+            const response = await fetch('http://localhost:8080/admin/getRoles')
+            const data = await response.json()
+            console.log(response)
             selectCreatNew(data)
             selectModalE(data)
-        })
-        .catch((error) => {
+        } catch (error) {
             console.log(error)
-        })
+        }
+    }
+    selects()
 
     function selectCreatNew(data) {
         $.each(data, function (key, value) {
