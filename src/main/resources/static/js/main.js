@@ -196,7 +196,6 @@ $(document).ready(function() {
         return user
     }
 
-
     $('.editButtonModal').on('click', async function () {
         try {
             await fetch('http://localhost:8080/admin/editUser', {
@@ -214,24 +213,19 @@ $(document).ready(function() {
     })
 
     // delete User
-    $('.deleteButtonModal').each(function () {
-        $(this).click(function () {
+    $('.deleteButtonModal').each(async function () {
+        $(this).click(async function () {
             let userId = $(this).attr('value')
-            fetch('http://localhost:8080/admin/deleteUser/' + userId, {
-                method: 'DELETE',
-            })
-                .then((response) => {
-                    if (response.ok) {
-                        console.log('delete user')
-                        requestAllUsers()
-                        $('#staticBackdropDelete').modal('hide');
-                    } else {
-                        console.log('ERROR')
-                    }
+            try {
+                await fetch('http://localhost:8080/admin/deleteUser/' + userId, {
+                    method: 'DELETE',
                 })
-                .catch((error) => {
-                    console.log(error)
-                })
+                console.log('delete user')
+                requestAllUsers()
+                $('#staticBackdropDelete').modal('hide')
+            } catch (error) {
+                console.log(error)
+            }
         })
     })
 })
