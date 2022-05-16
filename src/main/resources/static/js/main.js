@@ -82,32 +82,26 @@ $(document).ready(function() {
 
     // blocks/edit_window
     document.getElementById('staticBackdropEdit')
-    .addEventListener('show.bs.modal', function (event) {
-        fetch('http://localhost:8080/admin/userFromId/' + event
+    .addEventListener('show.bs.modal', async function (event) {
+        try {
+            const response = await fetch('http://localhost:8080/admin/userFromId/' + event
                 .relatedTarget
                 .getAttribute('data-bs-whatever'))
-            .then((response) => {
-                if (response.ok) {
-                    return response.json()
-                } else {
-                    console.log('ERROR')
-                }
+            const data = await response.json()
+            console.log(response)
+            $('#editButtonModal').attr('value', data.id)
+            $('#idE').attr('value', data.id)
+            $('#nameE').attr('value', data.name)
+            $('#nicknameE').attr('value', data.nickname)
+            $('#ladderE').attr('value', data.ladder)
+            $('#emailE').attr('value', data.email)
+            $('#passwordE').attr('value', data.password)
+            $('#rolesModalE option:selected').each(function () {
+                this.selected = false;
             })
-            .then((data) => {
-                $('#editButtonModal').attr('value', data.id)
-                $('#idE').attr('value', data.id)
-                $('#nameE').attr('value', data.name)
-                $('#nicknameE').attr('value', data.nickname)
-                $('#ladderE').attr('value', data.ladder)
-                $('#emailE').attr('value', data.email)
-                $('#passwordE').attr('value', data.password)
-                $('#rolesModalE option:selected').each(function () {
-                    this.selected = false;
-                })
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+        } catch (error) {
+            console.log(error)
+        }
     })
 
     // blocks/delete_window
