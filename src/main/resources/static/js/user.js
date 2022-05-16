@@ -1,18 +1,14 @@
-fetch('http://localhost:8080/user/userLogined')
-    .then((response) => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            console.log('ERROR')
-        }
-    })
-    .then((data) => {
+async function aHeader() {
+    try {
+        const response = await fetch('http://localhost:8080/user/userLogined')
+        const data = await response.json()
         tableUser(data)
         $('#aHeader').html('<strong>' + data.email + '</strong>' + ' with roles: ' + data.rolesString)
-    })
-    .catch((error) => {
+    } catch (error) {
         console.log(error)
-    })
+    }
+}
+aHeader()
 
 function tableUser(data) {
     let htmlTableUser;
@@ -26,3 +22,4 @@ function tableUser(data) {
         '<tr>'
     $('#tbodyTableUser').html(htmlTableUser)
 }
+
