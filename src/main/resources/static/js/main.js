@@ -153,29 +153,20 @@ $(document).ready(function() {
         return user
     }
 
-    $('#createButton').click(function () {
-        fetch('http://localhost:8080/admin/createUser', {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(userFromCreate())
-        })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json()
-                } else {
-                    console.log('ERROR')
-                }
+    $('#createButton').click(async function () {
+        try {
+            await fetch('http://localhost:8080/admin/createUser', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(userFromCreate())
             })
-            .then((data) => {
-                console.log(data)
-                requestAllUsers()
-                $('#createForm')[0].reset()
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+            requestAllUsers()
+            $('#createForm')[0].reset()
+        } catch (error) {
+            console.log(error)
+        }
         return tableAdmin();
     })
 
