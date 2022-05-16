@@ -33,7 +33,7 @@ public class UserRestController {
     @SneakyThrows
     public List<User> giveAllUsers() {
         log.info("CONTROLLER METHOD GET - giveAllUsers");
-        Thread.sleep(500);
+        Thread.sleep(100);
         return userService.getAllUsers();
     }
 

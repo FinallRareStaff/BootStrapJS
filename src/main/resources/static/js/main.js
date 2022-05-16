@@ -1,21 +1,14 @@
-$(function () {
+$(document).ready(function() {
 
     // blocks/header
-    function aHeader() {
-        fetch('http://localhost:8080/user/userLogined')
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    console.log('ERROR')
-                }
-            })
-            .then((data) => {
-                $('#aHeader').html('<strong>' + data.email + '</strong>' + ' with roles: ' + data.rolesString)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+    async function aHeader() {
+        try {
+            const response = await fetch('http://localhost:8080/user/userLogined')
+            const data = await response.json()
+            $('#aHeader').html('<strong>' + data.email + '</strong>' + ' with roles: ' + data.rolesString)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     //request users
@@ -98,11 +91,11 @@ $(function () {
     }
 
     // blocks/edit_window
-    const staticBackdropEdit = document.getElementById('staticBackdropEdit')
-    staticBackdropEdit.addEventListener('show.bs.modal', function (event) {
-        let button = event.relatedTarget
-        let idUser = button.getAttribute('data-bs-whatever');
-        fetch('http://localhost:8080/admin/userFromId/' + idUser)
+    document.getElementById('staticBackdropEdit')
+    .addEventListener('show.bs.modal', function (event) {
+        fetch('http://localhost:8080/admin/userFromId/' + event
+                .relatedTarget
+                .getAttribute('data-bs-whatever'))
             .then((response) => {
                 if (response.ok) {
                     return response.json()
@@ -128,11 +121,11 @@ $(function () {
     })
 
     // blocks/delete_window
-    const staticBackdropDelete = document.getElementById('staticBackdropDelete')
-    staticBackdropDelete.addEventListener('show.bs.modal', function (event) {
-        let button = event.relatedTarget
-        let idUser = button.getAttribute('data-bs-whatever');
-        fetch('http://localhost:8080/admin/userFromId/' + idUser)
+    document.getElementById('staticBackdropDelete')
+    .addEventListener('show.bs.modal', function (event) {
+        fetch('http://localhost:8080/admin/userFromId/' + event
+                .relatedTarget
+                .getAttribute('data-bs-whatever'))
             .then((response) => {
                 if (response.ok) {
                     return response.json()
