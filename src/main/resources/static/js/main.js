@@ -197,29 +197,20 @@ $(document).ready(function() {
     }
 
 
-    $('.editButtonModal').on('click', function () {
-        fetch('http://localhost:8080/admin/editUser', {
-            method: 'PATCH',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(userFormEdit())
-        })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json()
-                } else {
-                    console.log('ERROR')
-                }
+    $('.editButtonModal').on('click', async function () {
+        try {
+            await fetch('http://localhost:8080/admin/editUser', {
+                method: 'PATCH',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(userFormEdit())
             })
-            .then((data) => {
-                console.log(data)
-                requestAllUsers()
-                $('#staticBackdropEdit').modal('hide');
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+            requestAllUsers()
+            $('#staticBackdropEdit').modal('hide');
+        } catch (error) {
+            console.log(error)
+        }
     })
 
     // delete User
