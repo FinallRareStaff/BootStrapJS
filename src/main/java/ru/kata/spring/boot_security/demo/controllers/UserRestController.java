@@ -71,7 +71,7 @@ public class UserRestController {
     public User createUser(@RequestBody HashMap<String, String> data) {
         Collection<Role> roleCollection = new HashSet<>();
 
-        giveRolesBecouseUntrustFrontEnd(data, roleCollection);
+        checkRolesAgainstFrontEnd(data, roleCollection);
 
         User user = new User(data.get("name"),
                 data.get("nickname"),
@@ -91,12 +91,7 @@ public class UserRestController {
 
         long userId = Long.parseLong(data.get("id"));
 
-        if (data.get("roles").isEmpty()) {
-            User userBefore = userService.getUserById(userId);
-            roleCollection = userBefore.getRoles();
-        } else {
-            giveRolesBecouseUntrustFrontEnd(data, roleCollection);
-        }
+        roleCollection = getRoles(data, roleCollection, userId);
 
         User user = new User(userId,
                 data.get("name"),
@@ -111,12 +106,26 @@ public class UserRestController {
         return user;
     }
 
+
+    //BCryptEncoder
     private String givePassword(HashMap<String, String> data) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder.encode(data.get("password"));
     }
 
-    private void giveRolesBecouseUntrustFrontEnd(HashMap<String, String> data, Collection<Role> roleCollection) {
+    //Add Roles
+    private Collection<Role> getRoles(HashMap<String, String> data, Collection<Role> roleCollection, long userId) {
+        if (data.get("roles").isEmpty()) {
+            User userBefore = userService.getUserById(userId);
+            roleCollection = userBefore.getRoles();
+        } else {
+            checkRolesAgainstFrontEnd(data, roleCollection);
+        }
+        return roleCollection;
+    }
+
+    //List<Role>
+    private void checkRolesAgainstFrontEnd(HashMap<String, String> data, Collection<Role> roleCollection) {
         var feRoleIds = Stream
                 .of(data.get("roles").split(","))
                 .map(Long::valueOf)
