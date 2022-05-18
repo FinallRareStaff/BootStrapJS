@@ -69,29 +69,17 @@ public class UserRestController {
 
     @PostMapping(value = "/admin/createUser")
     public User createUser(@RequestBody HashMap<String, String> data) {
-        User user = new User();
-        user.setName(data.get("name"));
-        user.setNickname(data.get("nickname"));
-        user.setLadder(Integer.parseInt(data.get("ladder")));
-        user.setEmail(data.get("email"));
-
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        String bCryptPassword = bCryptPasswordEncoder.encode(data.get("password"));
-        user.setPassword(bCryptPassword);
-
         Collection<Role> roleCollection = new HashSet<>();
 
-        var feRoleIds = Stream
-                .of(data.get("roles").split(","))
-                .map(Long :: valueOf)
-                .collect(Collectors.toList());
+        giveRolesBecouseUntrustFrontEnd(data, roleCollection);
 
-        var validRoles = roleService.getAllRoles().stream()
-                .filter(dbRole -> feRoleIds.contains(dbRole.getId()))
-                .collect(Collectors.toList());
-        roleCollection.addAll(validRoles);
+        User user = new User(data.get("name"),
+                data.get("nickname"),
+                Integer.parseInt(data.get("ladder")),
+                data.get("email"),
+                givePassword(data),
+                roleCollection);
 
-        user.setRoles(roleCollection);
         userService.add(user);
         log.info("CONTROLLER METHOD POST - createUser , POST on Admin_page");
         return user;
@@ -99,37 +87,44 @@ public class UserRestController {
 
     @PatchMapping(value = "/admin/editUser")
     public User updateUser(@RequestBody HashMap<String, String> data) {
-        User user = new User();
-        long userId = Long.parseLong(data.get("id"));
-        user.setId(userId);
-        user.setName(data.get("name"));
-        user.setNickname(data.get("nickname"));
-        user.setLadder(Integer.parseInt(data.get("ladder")));
-        user.setEmail(data.get("email"));
-
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        String bCryptPasswod = bCryptPasswordEncoder.encode(data.get("password"));
-        user.setPassword(bCryptPasswod);
-
         Collection<Role> roleCollection = new HashSet<>();
+
+        long userId = Long.parseLong(data.get("id"));
 
         if (data.get("roles").isEmpty()) {
             User userBefore = userService.getUserById(userId);
             roleCollection = userBefore.getRoles();
         } else {
-            var feRoleIds = Stream
-                    .of(data.get("roles").split(","))
-                    .map(Long::valueOf)
-                    .collect(Collectors.toList());
-
-            var validRoles = roleService.getAllRoles().stream()
-                    .filter(dbRole -> feRoleIds.contains(dbRole.getId()))
-                    .collect(Collectors.toList());
-            roleCollection.addAll(validRoles);
+            giveRolesBecouseUntrustFrontEnd(data, roleCollection);
         }
-        user.setRoles(roleCollection);
+
+        User user = new User(userId,
+                data.get("name"),
+                data.get("nickname"),
+                Integer.parseInt(data.get("ladder")),
+                data.get("email"),
+                givePassword(data),
+                roleCollection);
+
         userService.update(userId, user);
         log.info("CONTROLLER METHOD PATCH - updateUser , PATCH on Admin_page");
         return user;
+    }
+
+    private String givePassword(HashMap<String, String> data) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        return bCryptPasswordEncoder.encode(data.get("password"));
+    }
+
+    private void giveRolesBecouseUntrustFrontEnd(HashMap<String, String> data, Collection<Role> roleCollection) {
+        var feRoleIds = Stream
+                .of(data.get("roles").split(","))
+                .map(Long::valueOf)
+                .collect(Collectors.toList());
+
+        var validRoles = roleService.getAllRoles().stream()
+                .filter(dbRole -> feRoleIds.contains(dbRole.getId()))
+                .collect(Collectors.toList());
+        roleCollection.addAll(validRoles);
     }
 }
