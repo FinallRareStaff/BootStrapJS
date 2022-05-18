@@ -1,15 +1,3 @@
-async function aHeader() {
-    try {
-        const response = await fetch('http://localhost:8080/user/userLogined')
-        const data = await response.json()
-        tableUser(data)
-        $('#aHeader').html('<strong>' + data.email + '</strong>' + ' with roles: ' + data.rolesString)
-    } catch (error) {
-        console.log(error)
-    }
-}
-aHeader()
-
 function tableUser(data) {
     let htmlTableUser;
     htmlTableUser = htmlTableUser + '<tr>' +
@@ -22,4 +10,17 @@ function tableUser(data) {
         '<tr>'
     $('#tbodyTableUser').html(htmlTableUser)
 }
+
+async function aHeader() {
+    try {
+        const response = await fetch('http://localhost:8080/user/userLogined')
+        const data = await response.json()
+        tableUser(data)
+        $('#aHeader').html('<strong>' + data.email + '</strong>' + ' with roles: ' + data.rolesString)
+    } catch (error) {
+        console.log(error)
+    }
+}
+aHeader()
+
 

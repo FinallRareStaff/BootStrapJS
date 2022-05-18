@@ -12,20 +12,6 @@ $(document).ready(function() {
         }
     }
 
-    //request users
-    async function requestAllUsers() {
-        try {
-            const response = await fetch('http://localhost:8080/admin/getUsers')
-            const data = await response.json()
-            console.log(response)
-            tableAdmin(data)
-            aHeader()
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    requestAllUsers()
-
     // blocks/admin_page
     function tableAdmin(data) {
         let htmlTableAdmin;
@@ -53,6 +39,20 @@ $(document).ready(function() {
         })
         $('#tbodyTableAdmin').html(htmlTableAdmin)
     }
+
+    //request users
+    async function requestAllUsers() {
+        try {
+            const response = await fetch('http://localhost:8080/admin/getUsers')
+            const data = await response.json()
+            console.log(response)
+            tableAdmin(data)
+            aHeader()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    requestAllUsers()
 
     // select for blocks/new_User and blocks/edit_window
     async function selects() {
@@ -220,7 +220,6 @@ $(document).ready(function() {
                 await fetch('http://localhost:8080/admin/deleteUser/' + userId, {
                     method: 'DELETE',
                 })
-                console.log('delete user')
                 requestAllUsers()
                 $('#staticBackdropDelete').modal('hide')
             } catch (error) {
