@@ -61,7 +61,7 @@ $(document).ready(function() {
             const data = await response.json()
             console.log(response)
             selectCreatNew(data)
-            selectModalE(data)
+            selectModalEdit(data)
         } catch (error) {
             console.log(error)
         }
@@ -70,13 +70,13 @@ $(document).ready(function() {
 
     function selectCreatNew(data) {
         $.each(data, function (key, value) {
-            $('#rolesC').prepend('<option value="' + value.id + '">' + value.roleString + '</option>');
+            $('#rolesCreate').prepend('<option value="' + value.id + '">' + value.roleString + '</option>');
         })
     }
 
-    function selectModalE(data) {
+    function selectModalEdit(data) {
         $.each(data, function (key, value) {
-            $('#rolesModalE').prepend('<option value="' + value.id + '">' + value.roleString + '</option>');
+            $('#rolesModalEdit').prepend('<option value="' + value.id + '">' + value.roleString + '</option>');
         })
     }
 
@@ -90,13 +90,13 @@ $(document).ready(function() {
             const data = await response.json()
             console.log(response)
             $('#editButtonModal').attr('value', data.id)
-            $('#idE').attr('value', data.id)
-            $('#nameE').attr('value', data.name)
-            $('#nicknameE').attr('value', data.nickname)
-            $('#ladderE').attr('value', data.ladder)
-            $('#emailE').attr('value', data.email)
-            $('#passwordE').attr('value', data.password)
-            $('#rolesModalE option:selected').each(function () {
+            $('#idEdit').attr('value', data.id)
+            $('#nameEdit').attr('value', data.name)
+            $('#nicknameEdit').attr('value', data.nickname)
+            $('#ladderEdit').attr('value', data.ladder)
+            $('#emailEdit').attr('value', data.email)
+            $('#passwordEdit').attr('value', data.password)
+            $('#rolesModalEdit option:selected').each(function () {
                 this.selected = false;
             })
         } catch (error) {
@@ -114,15 +114,15 @@ $(document).ready(function() {
             const data = await response.json()
             console.log(response)
             $('#deleteButtonModal').attr('value', data.id)
-            $('#idD').attr('value', data.id)
-            $('#nameD').attr('value', data.name)
-            $('#nicknameD').attr('value', data.nickname)
-            $('#ladderD').attr('value', data.ladder)
-            $('#emailD').attr('value', data.email)
-            $('#passwordD').attr('value', data.password)
-            $('#rolesModalD').empty()
+            $('#idDelete').attr('value', data.id)
+            $('#nameDelete').attr('value', data.name)
+            $('#nicknameDelete').attr('value', data.nickname)
+            $('#ladderDelete').attr('value', data.ladder)
+            $('#emailDelete').attr('value', data.email)
+            $('#passwordDelete').attr('value', data.password)
+            $('#rolesModalDelete').empty()
             $.each(data.roles, function (key, value) {
-                $('#rolesModalD').prepend('<option value="' + value.id + '">' + value.roleString + '</option>');
+                $('#rolesModalDelete').prepend('<option value="' + value.id + '">' + value.roleString + '</option>');
             })
         } catch (error) {
             console.log(error)
@@ -131,12 +131,12 @@ $(document).ready(function() {
 
     // create User
     function userFromCreate() {
-        let name = $('#nameC').val()
-        let nickname = $('#nicknameC').val()
-        let ladder = $('#ladderC').val()
-        let email = $('#emailC').val()
-        let password = $('#passwordC').val()
-        let roles = $('#rolesC').val()
+        let name = $('#nameCreate').val()
+        let nickname = $('#nicknameCreate').val()
+        let ladder = $('#ladderCreate').val()
+        let email = $('#emailCreate').val()
+        let password = $('#passwordCreate').val()
+        let roles = $('#rolesCreate').val()
         let rolesString = '';
         $.each(roles, function (index, value) {
             rolesString += value + ','
@@ -172,13 +172,13 @@ $(document).ready(function() {
 
     // edit User
     function userFormEdit() {
-        let id = $('#idE').val()
-        let name = $('#nameE').val()
-        let nickname = $('#nicknameE').val()
-        let ladder = $('#ladderE').val()
-        let email = $('#emailE').val()
-        let password = $('#passwordE').val()
-        let roles = $('#rolesModalE').val()
+        let id = $('#idEdit').val()
+        let name = $('#nameEdit').val()
+        let nickname = $('#nicknameEdit').val()
+        let ladder = $('#ladderEdit').val()
+        let email = $('#emailEdit').val()
+        let password = $('#passwordEdit').val()
+        let roles = $('#rolesModalEdit').val()
         let rolesString = '';
         $.each(roles, function (index, value) {
             rolesString += value + ','
